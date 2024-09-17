@@ -12,29 +12,47 @@ import java.util.List;
 @SpringBootApplication
 public class SpringJpaApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-     	 ApplicationContext context = SpringApplication.run(SpringJpaApplication.class, args);
-		 UserRepository userRepository = context.getBean(UserRepository.class);
+        ApplicationContext context = SpringApplication.run(SpringJpaApplication.class, args);
+        UserRepository userRepository = context.getBean(UserRepository.class);
 
 
-		 User user1 = new User(1, "Vivek", "Rohtak");
-//		 User afterSaveUser1 = userRepository.save(user1);
-//		 System.out.println(afterSaveUser1);
+        User user1 = new User("Vivek", "Rohtak");
 
-		 User user2 = new User();
-		 user2.setName("Abhishek");
-		 user2.setCity("Delhi");
+        User user2 = new User();
+        user2.setName("Abhishek");
+        user2.setCity("Delhi");
 
-		 User user3 = new User(4, "Vaibhav", "Bhiwani");
+        User user3 = new User("Vaibhav", "Bhiwani");
 
-		 List<User> users = new ArrayList<>();
-		 users.add(user1); users.add(user2); users.add(user3);
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
 
-		 List afterSaveUsers = userRepository.saveAll(users);
+//		save values of users in db
+        List<User> afterSaveUsers = userRepository.saveAll(users);
+		System.out.println("Saving users " + afterSaveUsers);
 
-		 afterSaveUsers.forEach(user -> System.out.println(user));
 
-	}
+//		fetch saved users
+        List<User> userList = userRepository.findAll();
+        System.out.print("Saved users ");
+        System.out.println(userList);
+
+        User userUpdate = new User("Vivek", "Gurgaon");
+        userUpdate.setId(1);
+        userRepository.save(userUpdate);
+
+//		update
+        List<User> userListAfterUpdate = userRepository.findAll();
+        System.out.println("After updating city " + userListAfterUpdate);
+
+//		delete
+        userRepository.deleteById(3);
+        System.out.println("After deleting user " + userRepository.findAll());
+
+    }
 
 }

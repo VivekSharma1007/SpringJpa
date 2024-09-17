@@ -18,8 +18,7 @@ public class User {
         super();
     }
 
-    public User(int id, String name, String city) {
-        this.id = id;
+    public User(String name, String city) {
         this.name = name;
         this.city = city;
     }
