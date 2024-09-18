@@ -53,6 +53,9 @@ public class SpringJpaApplication {
         userRepository.deleteById(3);
         System.out.println("After deleting user " + userRepository.findAll());
 
+        List<User> customQueryMethodByName = userRepository.findByName("Vivek");
+        System.out.println("customQueryMethodByName "  + customQueryMethodByName);
+
     }
 
 }
